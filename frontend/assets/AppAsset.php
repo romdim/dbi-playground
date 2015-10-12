@@ -19,6 +19,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web/frontend/assets';
     public $css = [
+        'css/lavish-bootstrap.css',
         'css/site.css',
     ];
     public $js = [
