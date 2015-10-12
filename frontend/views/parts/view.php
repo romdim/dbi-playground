@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = 'View';
 
         <div class="panel-body">
             <?php foreach($question->getAnswers()->all() as $answers) {?>
-            <?= $form->field($model, 'question')->radioList($answers) ?>
+            <?= $form->field($model, 'name')->radioList($answers) ?>
             <?php // $answers->answer ?>
             <?php } ?>
         </div>
