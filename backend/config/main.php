@@ -16,6 +16,12 @@ return [
             'class' => 'yii\gii\Module', //adding gii module
             'allowedIPs' => ['127.0.0.1', '::1']  //allowing ip's
         ],
+        'redactor' => [
+            'class' => 'yii\redactor\RedactorModule',
+            'widgetClientOptions' => [
+                'plugins' => ['underline', 'video', 'clips', 'fontcolor']
+            ]
+        ],
     ],
     'components' => [
         'user' => [

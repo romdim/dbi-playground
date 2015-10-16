@@ -5,11 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Results;
 
 /**
-* PasswordsSearch represents the model behind the search form about `app\models\Passwords`.
+* ResultsSearch represents the model behind the search form about `common\models\Results`.
 */
-class PasswordsSearch extends Passwords
+class ResultsSearch extends Results
 {
 /**
 * @inheritdoc
@@ -17,7 +18,8 @@ class PasswordsSearch extends Passwords
 public function rules()
 {
 return [
-[['id', 'password', 'created_at', 'updated_at'], 'integer'],
+[['id', 'results_page', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['name', 'description', 'text', 'small_photo', 'big_photo'], 'safe'],
 ];
 }
 
@@ -39,7 +41,7 @@ return Model::scenarios();
 */
 public function search($params)
 {
-$query = Passwords::find();
+$query = Results::find();
 
 $dataProvider = new ActiveDataProvider([
 'query' => $query,
@@ -55,10 +57,18 @@ return $dataProvider;
 
 $query->andFilterWhere([
             'id' => $this->id,
-            'password' => $this->password,
+            'results_page' => $this->results_page,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'text', $this->text])
+            ->andFilterWhere(['like', 'small_photo', $this->small_photo])
+            ->andFilterWhere(['like', 'big_photo', $this->big_photo]);
 
 return $dataProvider;
 }

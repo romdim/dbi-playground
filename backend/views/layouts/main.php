@@ -35,7 +35,8 @@ AppAsset::register($this);
                 ['label' => 'Parts', 'url' => ['/parts']],
                 ['label' => 'Questions', 'url' => ['/questions']],
                 ['label' => 'Answers', 'url' => ['/answers']],
-                ['label' => 'Passwords', 'url' => ['/passwords']],
+                ['label' => 'Results Page', 'url' => ['/results-page']],
+                ['label' => 'Results', 'url' => ['/results']],
 
                 ['label' => 'FrontEnd', 'url' => ['../../']],
             ];

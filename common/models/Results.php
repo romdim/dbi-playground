@@ -7,28 +7,30 @@ use yii\behaviors\TimestampBehavior;
 use Yii;
 
 /**
- * This is the model class for table "parts".
+ * This is the model class for table "results".
  *
  * @property integer $id
  * @property string $name
+ * @property string $description
+ * @property string $text
+ * @property integer $results_page
+ * @property string $small_photo
+ * @property string $big_photo
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
  *
- * @property User $createdBy
- * @property User $updatedBy
- * @property Questions[] $questions
- * @property ResultFrom[] $resultFroms
+ * @property ResultsPage $resultsPage
  */
-class Parts extends \yii\db\ActiveRecord
+class Results extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'parts';
+        return 'results';
     }
 
     /**
@@ -37,9 +39,10 @@ class Parts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['description', 'text'], 'string'],
+            [['results_page', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['name', 'small_photo', 'big_photo'], 'string', 'max' => 255],
+            [['results_page'], 'exist', 'skipOnError' => true, 'targetClass' => ResultsPage::className(), 'targetAttribute' => ['results_page' => 'id']],
         ];
     }
 
@@ -62,6 +65,11 @@ class Parts extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'description' => 'Description',
+            'text' => 'Text',
+            'results_page' => 'Results Page',
+            'small_photo' => 'Small Photo',
+            'big_photo' => 'Big Photo',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
@@ -72,32 +80,8 @@ class Parts extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCreatedBy()
+    public function getResultsPage()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUpdatedBy()
-    {
-        return $this->hasOne(User::className(), ['id' => 'updated_by']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getQuestions()
-    {
-        return $this->hasMany(Questions::className(), ['part' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResultFroms()
-    {
-        return $this->hasMany(ResultFrom::className(), ['part' => 'id']);
+        return $this->hasOne(ResultsPage::className(), ['id' => 'results_page']);
     }
 }

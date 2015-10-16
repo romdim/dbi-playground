@@ -1,22 +1,19 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use common\models\AnswersUsers;
-use common\models\Parts;
-use common\models\PartsSearch;
-use Yii;
-use yii\base\Model;
-use yii\helpers\ArrayHelper;
+use common\models\ResultFrom;
+use common\models\ResultFromSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
+use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 
 /**
- * PartsController implements the CRUD actions for Parts model.
+ * ResultFromController implements the CRUD actions for ResultFrom model.
  */
-class PartsController extends Controller
+class ResultFromController extends Controller
 {
     /**
      * @var boolean whether to enable CSRF validation for the actions in this controller.
@@ -26,12 +23,12 @@ class PartsController extends Controller
 
 	
 	/**
-	 * Lists all Parts models.
+	 * Lists all ResultFrom models.
 	 * @return mixed
 	 */
 	public function actionIndex()
 	{
-		$searchModel  = new PartsSearch;
+		$searchModel  = new ResultFromSearch;
 		$dataProvider = $searchModel->search($_GET);
 
 		Tabs::clearLocalStorage();
@@ -46,55 +43,30 @@ class PartsController extends Controller
 	}
 
 	/**
-	 * Displays a single Parts model.
+	 * Displays a single ResultFrom model.
 	 * @param integer $id
      *
 	 * @return mixed
 	 */
-	public function actionParts($id)
+	public function actionView($id)
 	{
-        $part = $this->findModel($id);
-        $questions = $part->getQuestions()->all();
-        $answers = [];
-        foreach($questions as $key => $question) {
-            $answers[] = ArrayHelper::map($question->getAnswers()->all(), 'id', 'answer');
-        }
+        \Yii::$app->session['__crudReturnUrl'] = Url::previous();
+        Url::remember();
+        Tabs::rememberActiveState();
 
-        $answersUsers = [];
-        $pass = true;
-
-        if (Yii::$app->request->getIsPost()) {
-            $answersUsers = Yii::$app->request->post()['AnswersUsers'];
-            foreach($answersUsers as $answer) {
-                if ($answer === '') {
-                    $pass = false;
-                }
-            }
-            if ($pass) {
-                foreach ($answersUsers as $answer) {
-                    $model = new AnswersUsers();
-                    $model->answer = $answer;
-                    $model->save();
-                }
-            }
-        }
         return $this->render('view', [
-            'questions' => $questions,
-            'answers' => $answers,
-            'part' => $part,
-            'pass' => $pass,
-            'answersUsers' => $answersUsers
-        ]);
+			'model' => $this->findModel($id),
+		]);
 	}
 
 	/**
-	 * Creates a new Parts model.
+	 * Creates a new ResultFrom model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
 	public function actionCreate()
 	{
-		$model = new Parts;
+		$model = new ResultFrom;
 
 		try {
             if ($model->load($_POST) && $model->save()) {
@@ -110,7 +82,7 @@ class PartsController extends Controller
 	}
 
 	/**
-	 * Updates an existing Parts model.
+	 * Updates an existing ResultFrom model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id
 	 * @return mixed
@@ -129,7 +101,7 @@ class PartsController extends Controller
 	}
 
 	/**
-	 * Deletes an existing Parts model.
+	 * Deletes an existing ResultFrom model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id
 	 * @return mixed
@@ -160,15 +132,15 @@ class PartsController extends Controller
 	}
 
 	/**
-	 * Finds the Parts model based on its primary key value.
+	 * Finds the ResultFrom model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 * @param integer $id
-	 * @return Parts the loaded model
+	 * @return ResultFrom the loaded model
 	 * @throws HttpException if the model cannot be found
 	 */
 	protected function findModel($id)
 	{
-		if (($model = Parts::findOne($id)) !== null) {
+		if (($model = ResultFrom::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new HttpException(404, 'The requested page does not exist.');

@@ -7,28 +7,27 @@ use yii\behaviors\TimestampBehavior;
 use Yii;
 
 /**
- * This is the model class for table "parts".
+ * This is the model class for table "result_from".
  *
  * @property integer $id
- * @property string $name
+ * @property integer $part
+ * @property integer $result
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
  *
- * @property User $createdBy
- * @property User $updatedBy
- * @property Questions[] $questions
- * @property ResultFrom[] $resultFroms
+ * @property Parts $part0
+ * @property ResultsPage $result0
  */
-class Parts extends \yii\db\ActiveRecord
+class ResultFrom extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'parts';
+        return 'result_from';
     }
 
     /**
@@ -37,9 +36,9 @@ class Parts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['part', 'result', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['part'], 'exist', 'skipOnError' => true, 'targetClass' => Parts::className(), 'targetAttribute' => ['part' => 'id']],
+            [['result'], 'exist', 'skipOnError' => true, 'targetClass' => ResultsPage::className(), 'targetAttribute' => ['result' => 'id']],
         ];
     }
 
@@ -61,7 +60,8 @@ class Parts extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'part' => 'Part',
+            'result' => 'Result',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
@@ -72,32 +72,16 @@ class Parts extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCreatedBy()
+    public function getPart0()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
+        return $this->hasOne(Parts::className(), ['id' => 'part']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUpdatedBy()
+    public function getResult0()
     {
-        return $this->hasOne(User::className(), ['id' => 'updated_by']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getQuestions()
-    {
-        return $this->hasMany(Questions::className(), ['part' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResultFroms()
-    {
-        return $this->hasMany(ResultFrom::className(), ['part' => 'id']);
+        return $this->hasOne(ResultsPage::className(), ['id' => 'result']);
     }
 }

@@ -5,11 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\ResultsPage;
 
 /**
-* PartsSearch represents the model behind the search form about `common\models\Parts`.
+* ResultsPageSearch represents the model behind the search form about `common\models\ResultsPage`.
 */
-class PartsSearch extends Parts
+class ResultsPageSearch extends ResultsPage
 {
 /**
 * @inheritdoc
@@ -40,7 +41,7 @@ return Model::scenarios();
 */
 public function search($params)
 {
-$query = Parts::find();
+$query = ResultsPage::find();
 
 $dataProvider = new ActiveDataProvider([
 'query' => $query,

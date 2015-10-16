@@ -7,7 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use Yii;
 
 /**
- * This is the model class for table "parts".
+ * This is the model class for table "results_page".
  *
  * @property integer $id
  * @property string $name
@@ -16,19 +16,17 @@ use Yii;
  * @property integer $created_by
  * @property integer $updated_by
  *
- * @property User $createdBy
- * @property User $updatedBy
- * @property Questions[] $questions
  * @property ResultFrom[] $resultFroms
+ * @property Results[] $results
  */
-class Parts extends \yii\db\ActiveRecord
+class ResultsPage extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'parts';
+        return 'results_page';
     }
 
     /**
@@ -37,7 +35,6 @@ class Parts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
@@ -72,32 +69,16 @@ class Parts extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCreatedBy()
-    {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUpdatedBy()
-    {
-        return $this->hasOne(User::className(), ['id' => 'updated_by']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getQuestions()
-    {
-        return $this->hasMany(Questions::className(), ['part' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getResultFroms()
     {
-        return $this->hasMany(ResultFrom::className(), ['part' => 'id']);
+        return $this->hasMany(ResultFrom::className(), ['result' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResults()
+    {
+        return $this->hasMany(Results::className(), ['results_page' => 'id']);
     }
 }

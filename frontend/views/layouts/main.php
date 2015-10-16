@@ -55,7 +55,7 @@ AppAsset::register($this);
             $menuItems = [
                 ['label' => 'Home', 'url' => ['/site/index']],
                 ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Part1', 'url' => ['/parts/view', 'id' => 1]],
+                ['label' => 'Begin Questionnaire', 'url' => ['/part/1']],
                 ['label' => 'Contact', 'url' => ['/site/contact']],
             ];
             if (Yii::$app->user->isGuest) {

@@ -5,11 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\ResultFrom;
 
 /**
-* PartsSearch represents the model behind the search form about `common\models\Parts`.
+* ResultFromSearch represents the model behind the search form about `common\models\ResultFrom`.
 */
-class PartsSearch extends Parts
+class ResultFromSearch extends ResultFrom
 {
 /**
 * @inheritdoc
@@ -17,8 +18,7 @@ class PartsSearch extends Parts
 public function rules()
 {
 return [
-[['id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['name'], 'safe'],
+[['id', 'part', 'result', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
 ];
 }
 
@@ -40,7 +40,7 @@ return Model::scenarios();
 */
 public function search($params)
 {
-$query = Parts::find();
+$query = ResultFrom::find();
 
 $dataProvider = new ActiveDataProvider([
 'query' => $query,
@@ -56,13 +56,13 @@ return $dataProvider;
 
 $query->andFilterWhere([
             'id' => $this->id,
+            'part' => $this->part,
+            'result' => $this->result,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
         ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
 
 return $dataProvider;
 }

@@ -21,7 +21,7 @@ use Yii;
  * @property Questions $question0
  * @property User $createdBy
  * @property User $updatedBy
- * @property PasswordAnswers[] $passwordAnswers
+ * @property AnswersUsers[] $answersUsers
  */
 class Answers extends \yii\db\ActiveRecord
 {
@@ -101,8 +101,8 @@ class Answers extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPasswordAnswers()
+    public function getAnswersUsers()
     {
-        return $this->hasMany(PasswordAnswers::className(), ['answer' => 'id']);
+        return $this->hasMany(AnswersUsers::className(), ['answer' => 'id']);
     }
 }

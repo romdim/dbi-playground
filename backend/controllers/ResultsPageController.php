@@ -2,17 +2,18 @@
 
 namespace backend\controllers;
 
-use common\models\Passwords;
-use common\models\PasswordsSearch;
+use common\models\ResultsPage;
+use common\models\ResultsPageSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
+use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 
 /**
- * PasswordsController implements the CRUD actions for Passwords model.
+ * ResultsPageController implements the CRUD actions for ResultsPage model.
  */
-class PasswordsController extends Controller
+class ResultsPageController extends Controller
 {
     /**
      * @var boolean whether to enable CSRF validation for the actions in this controller.
@@ -22,12 +23,12 @@ class PasswordsController extends Controller
 
 	
 	/**
-	 * Lists all Passwords models.
+	 * Lists all ResultsPage models.
 	 * @return mixed
 	 */
 	public function actionIndex()
 	{
-		$searchModel  = new PasswordsSearch;
+		$searchModel  = new ResultsPageSearch;
 		$dataProvider = $searchModel->search($_GET);
 
 		Tabs::clearLocalStorage();
@@ -42,7 +43,7 @@ class PasswordsController extends Controller
 	}
 
 	/**
-	 * Displays a single Passwords model.
+	 * Displays a single ResultsPage model.
 	 * @param integer $id
      *
 	 * @return mixed
@@ -59,13 +60,13 @@ class PasswordsController extends Controller
 	}
 
 	/**
-	 * Creates a new Passwords model.
+	 * Creates a new ResultsPage model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
 	public function actionCreate()
 	{
-		$model = new Passwords;
+		$model = new ResultsPage;
 
 		try {
             if ($model->load($_POST) && $model->save()) {
@@ -81,7 +82,7 @@ class PasswordsController extends Controller
 	}
 
 	/**
-	 * Updates an existing Passwords model.
+	 * Updates an existing ResultsPage model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id
 	 * @return mixed
@@ -100,7 +101,7 @@ class PasswordsController extends Controller
 	}
 
 	/**
-	 * Deletes an existing Passwords model.
+	 * Deletes an existing ResultsPage model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id
 	 * @return mixed
@@ -131,15 +132,15 @@ class PasswordsController extends Controller
 	}
 
 	/**
-	 * Finds the Passwords model based on its primary key value.
+	 * Finds the ResultsPage model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 * @param integer $id
-	 * @return Passwords the loaded model
+	 * @return ResultsPage the loaded model
 	 * @throws HttpException if the model cannot be found
 	 */
 	protected function findModel($id)
 	{
-		if (($model = Passwords::findOne($id)) !== null) {
+		if (($model = ResultsPage::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new HttpException(404, 'The requested page does not exist.');
