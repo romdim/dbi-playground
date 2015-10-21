@@ -5,12 +5,12 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var common\models\PartsSearch $model
+ * @var common\models\StepsSearch $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
 
-<div class="parts-search">
+<div class="steps-search">
 
 	<?php $form = ActiveForm::begin([
 		'action' => ['index'],
@@ -21,13 +21,11 @@ use yii\widgets\ActiveForm;
 
 		<?= $form->field($model, 'name') ?>
 
-        <?= $form->field($model, 'step') ?>
+		<?= $form->field($model, 'created_at') ?>
 
-        <?php // $form->field($model, 'created_at') ?>
+		<?= $form->field($model, 'updated_at') ?>
 
-		<?php // $form->field($model, 'updated_at') ?>
-
-		<?php // $form->field($model, 'created_by') ?>
+		<?= $form->field($model, 'created_by') ?>
 
 		<?php // echo $form->field($model, 'updated_by') ?>
 

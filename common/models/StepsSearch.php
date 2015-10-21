@@ -5,11 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Steps;
 
 /**
-* PartsSearch represents the model behind the search form about `common\models\Parts`.
+* StepsSearch represents the model behind the search form about `common\models\Steps`.
 */
-class PartsSearch extends Parts
+class StepsSearch extends Steps
 {
 /**
 * @inheritdoc
@@ -17,7 +18,7 @@ class PartsSearch extends Parts
 public function rules()
 {
 return [
-[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'step'], 'integer'],
+[['id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name'], 'safe'],
 ];
 }
@@ -40,7 +41,7 @@ return Model::scenarios();
 */
 public function search($params)
 {
-$query = Parts::find();
+$query = Steps::find();
 
 $dataProvider = new ActiveDataProvider([
 'query' => $query,
@@ -56,7 +57,6 @@ return $dataProvider;
 
 $query->andFilterWhere([
             'id' => $this->id,
-            'step' => $this->step,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,

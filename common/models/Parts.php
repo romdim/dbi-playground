@@ -15,7 +15,9 @@ use Yii;
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
+ * @property integer $step
  *
+ * @property Steps $step0
  * @property User $createdBy
  * @property User $updatedBy
  * @property Questions[] $questions
@@ -38,8 +40,9 @@ class Parts extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by', 'step'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            [['step'], 'exist', 'skipOnError' => true, 'targetClass' => Steps::className(), 'targetAttribute' => ['step' => 'id']],
         ];
     }
 
@@ -62,11 +65,20 @@ class Parts extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'step' => 'Step',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStep0()
+    {
+        return $this->hasOne(Steps::className(), ['id' => 'step']);
     }
 
     /**

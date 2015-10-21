@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Answers;
 use common\models\AnswersUsers;
 use common\models\Parts;
 use common\models\ResultsPage;
@@ -240,11 +241,81 @@ class SiteController extends Controller
         $resultsFrom = $resultsPage->getResultFroms()->all();
         $results = $resultsPage->getResults()->all();
 
-        return $this->render('results', [
+        // Get all the Answer IDs from which we can retrieve results
+        $answerIds = [];
+        foreach ($resultsFrom as $fromPart) {
+            $questions = $fromPart->getPart0()->one()->getQuestions()->all();
+            foreach ($questions as $question) {
+                $answers = $question->getAnswers()->all();
+                foreach ($answers as $answer) {
+                    $answerIds[] = $answer->id;
+                }
+            }
+        }
+
+        // Get all the answers provided by the user for this result
+        $answersUsers = AnswersUsers::find()->where([
+            'answer' => $answerIds,
+            'created_by' => Yii::$app->getUser()->id
+        ])->select('answer')->all();
+
+        // Provide the mostly A's, B's etc. or just the selected answer
+        switch ($id) {
+            case 1:
+                $options = [0, 0, 0, 0];
+                foreach ($answersUsers as $answerUser) {
+                    switch (Answers::findOne($answerUser->answer)->answer_num) {
+                        case 1:
+                            $options[0]++;
+                            break;
+                        case 2:
+                            $options[1]++;
+                            break;
+                        case 3:
+                            $options[2]++;
+                            break;
+                        case 4:
+                            $options[3]++;
+                            break;
+                    }
+                }
+                $selected = array_search(max($options), $options, null);
+                break;
+            // Get the first answer of the 3rd Part !!HARDCODED!! (bad)
+            case 2:
+                $selected = Answers::findOne($answersUsers[0]->answer)->answer_num;
+                break;
+            // Get the second answer of the 3rd Part !!HARDCODED!! (bad)
+            case 3:
+                $selectedName = Answers::findOne($answersUsers[1]->answer)->answer;
+                foreach ($results as $key => $result) {
+                    if ($result->name === $selectedName) {
+                        $selected = $key;
+                    }
+                }
+                break;
+        }
+
+        return $this->render('results'.$id, [
             'resultsPage' => $resultsPage,
             'resultsFrom' => $resultsFrom,
-            'results' => $results
+            'results' => $results,
+            'selected' => $selected,
+            'id' => $id
         ]);
+    }
+
+    /**
+     * Displays the more page
+     *
+     * @return mixed
+     */
+    public function actionMore()
+    {
+        $resultsPage = $this->findResultsPageModel(4);
+        $resultsFrom = $resultsPage->getResultFroms()->all();
+        $results = $resultsPage->getResults()->all();
+        return $this->render('more', []);
     }
 
     /**

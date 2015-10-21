@@ -4,11 +4,15 @@ $this->title = 'Digital Business Innovation Playground';
 ?>
 <div class="site-index">
 
-    <div class="body-content">
+    <div class="body-content text-justify">
+
+        <h1><?= $this->title ?></h1>
 
         <p>Your business is today either struggling to grow its market share or struggling to maintain its dominance. The advent of digital technologies and ubiquitous communication has transformed the way your business interacts. Markets are no longer governed by physical geographies. The consumer base is global. Barriers to entry are falling year on year. The days of simply entering a new market with an old product are over.</p>
 
         <p>The quest for new value through digital business innovation has started!</p>
+
+        <br />
 
         <p>Do you want to find out…</p>
         
@@ -18,11 +22,19 @@ $this->title = 'Digital Business Innovation Playground';
             <li>Which are the technological trends that apply to your industry?</li>
         </ul>
 
+        <br />
+
         <p>Do you want to measure your digital readiness?</p>
+
+        <br />
 
         <p>You can now start experimenting through our Digital Business Innovation Playground!</p>
 
-        <a href="http://www.futureenterprise.eu/" target="_blank">http://www.futureenterprise.eu/</a>
+        <br />
+
+        <div class="block-center">
+            <a class="btn btn-primary btn-lg btn-block" href="part/1">Begin</a>
+        </div>
 
     </div>
 </div>

@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = 'View';
     'class' => yii\grid\DataColumn::className(),
     'attribute' => 'part',
     'value' => function ($model) {
-        if ($rel = $model->getPart()->one()) {
+        if ($rel = $model->getPart0()->one()) {
             return Html::a($rel->name, ['parts/view', 'id' => $rel->id,], ['data-pjax' => 0]);
         } else {
             return '';

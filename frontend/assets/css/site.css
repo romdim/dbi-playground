@@ -90,6 +90,7 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
+
 .navbar-brand {
     padding: 0;
 }
@@ -97,4 +98,71 @@ a.desc:after {
 .navbar-brand > img {
     background-color: white;
     height: 101%;
+}
+
+
+.body-content {
+    margin-top: 20px;
+}
+
+.body-content p, .body-content ul li {
+    font-size: 2em;
+    padding-bottom: 5px;
+}
+
+.blueish-bg {
+    background-color: #14A4D9;
+    border: solid 1px white;
+    color: black;
+}
+
+.img-results {
+    height: 80px;
+    margin: 10px auto;
+}
+
+.results-tiles {
+    background-color: white;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    transition: background-color 300ms ease-in;
+    border: solid 1px white;
+}
+
+.results-tiles a {
+    text-decoration: none;
+}
+
+.results-tiles:hover, .results-tiles:active {
+    background-color: #14A4D9;
+}
+
+.selected-result {
+    background-color: #14A4D9;
+}
+
+.flex {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.panel-default > .panel-heading {
+    background-color: #14A4D9;
+    border-color: #14A4D9;
+}
+
+.panel-default > .panel-heading > h2 {
+    margin-top: 10px;
+}
+
+.panel-default > .panel-body {
+    color: #666;
+    border-color: white;
+    font-size: 1.2em;
+    padding-bottom: 0;
+}
+
+.panel-default > .panel-body > {
+
 }

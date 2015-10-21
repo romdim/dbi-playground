@@ -10,6 +10,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '<action:(part|results)>/<id:\d+>' => 'site/<action>',
+                'more/' => 'more/',
 //                '<controller:(posts)>/<action:(update|view|delete)>/<id:\d+>' => '<controller>/<action>',
 //                '<controller:(posts)>/<action:(create|index)>' => '<controller>/<action>',
 //                '<slugDate:(\d{4}-\d{2}-\d{2}-[A-Za-z0-9\-\_]+)>' => 'posts/viewbyslug',

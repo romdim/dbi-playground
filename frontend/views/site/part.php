@@ -16,7 +16,8 @@ $this->title = $part->name;
 ?>
 <div class="part-view">
 
-    <h1><?= $part->name ?> </h1>
+    <h1><?= $part->getStep0()->one()->name ?> </h1>
+    <h2><?= $part->name ?> </h2>
 
     <?= (!$pass) ? '<div class="text-danger">Please select an answer in all questions</div><br />' : '' ?>
 
@@ -38,7 +39,7 @@ $this->title = $part->name;
                 <input type="hidden" name="AnswersUsers[answer<?= $key ?>]" value="">
                 <div id="answersusers-answerr<?= $key ?>">
                     <?php foreach($answers[$key] as $id => $answer) { ?>
-                        <label class="modal-radio"><input type="radio" name="AnswersUsers[answer<?= $key ?>]" value="<?= $id ?>" <?= in_array($id, $answersUsers, null) ? 'checked="checked"' : ''?>><?= $answer ?></label>
+                        <label class="modal-radio"><input type="radio" name="AnswersUsers[answer<?= $key ?>]" value="<?= $id ?>" <?= in_array($id, $answersUsers, null) ? 'checked="checked"' : ''?>><?= $answer ?></label><br />
                     <?php } ?>
                 </div>
             </div>
@@ -47,7 +48,7 @@ $this->title = $part->name;
     <?php } ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block']) ?>
     </div>
     <?php ActiveForm::end() ?>
 </div>
