@@ -1,30 +1,27 @@
-#octagon {
+.octagon {
+    /*position: relative;*/
+    left: 50%;
+    transform: translateX(-50%);
     width: 100px;
     height: 100px;
-    background: red;
-    position: relative;
 }
 
-#octagon:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-bottom: 29px solid red;
-    border-left: 29px solid #eee;
-    border-right: 29px solid #eee;
-    width: 42px;
-    height: 0;
+.octagon rect {
+    font-size: 36.42136px;
+    stroke-width: 58.57864px;
+    stroke-linejoin: bevel;
+    /*stroke: white;*/
+    transform: translate(29.28932px, 29.28932px);
 }
 
-#octagon:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 29px solid red;
-    border-left: 29px solid #eee;
-    border-right: 29px solid #eee;
-    width: 42px;
-    height: 0;
+.octagon .tiles-border {
+    font-size: 42.42136px;
+    stroke-width: 50.57864px;
+    stroke-linejoin: bevel;
+    transform: translate(0.28932px, 0.28932px);
+}
+
+.tiles {
+    margin-right: 58.57864px;
+    /*border: solid 2px black;*/
 }

@@ -17,8 +17,8 @@ class m151021_142300_tiles extends Migration
             'id' => Schema::TYPE_PK,
             'level' => Schema::TYPE_STRING,
             'description' => Schema::TYPE_STRING,
-            'color' => Schema::TYPE_STRING,
             'score' => Schema::TYPE_INTEGER,
+            'color' => Schema::TYPE_STRING,
             'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
             'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
             'created_by' => Schema::TYPE_INTEGER,
@@ -38,7 +38,7 @@ class m151021_142300_tiles extends Migration
         $this->createTable('{{%tiles}}', [
             'id' => Schema::TYPE_PK,
             'name' => Schema::TYPE_STRING,
-            'description' => Schema::TYPE_STRING,
+            'description' => Schema::TYPE_TEXT,
             'text' => Schema::TYPE_TEXT,
             'category' => Schema::TYPE_INTEGER,
             'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
@@ -49,18 +49,9 @@ class m151021_142300_tiles extends Migration
 
         $this->addForeignKey('fk_tiles_tiles_categories', '{{%tiles}}', 'category', '{{%tiles_categories}}', 'id', 'CASCADE', 'CASCADE');
 
-        $this->createTable('{{%tiles_levels}}', [
-            'id' => Schema::TYPE_PK,
-            'tile' => Schema::TYPE_INTEGER,
-            'level' => Schema::TYPE_INTEGER,
-            'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'created_by' => Schema::TYPE_INTEGER,
-            'updated_by' => Schema::TYPE_INTEGER,
-        ], $tableOptions);
-
         // Create a Many to Many Relationship between users (unique session/user) and their tiles
         $this->createTable('{{%tiles_users}}', [
+            'id' => Schema::TYPE_PK,
             'tile' => Schema::TYPE_INTEGER,
             'level' => Schema::TYPE_INTEGER,
             'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
@@ -75,5 +66,9 @@ class m151021_142300_tiles extends Migration
 
     public function safeDown()
     {
+        $this->dropTable('{{%tiles_users}}');
+        $this->dropTable('{{%tiles}}');
+        $this->dropTable('{{%tiles_categories}}');
+        $this->dropTable('{{%levels}}');
     }
 }

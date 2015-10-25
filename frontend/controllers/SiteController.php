@@ -3,8 +3,12 @@ namespace frontend\controllers;
 
 use common\models\Answers;
 use common\models\AnswersUsers;
+use common\models\Levels;
 use common\models\Parts;
 use common\models\ResultsPage;
+use common\models\Tiles;
+use common\models\TilesCategories;
+use common\models\TilesUsers;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -237,6 +241,9 @@ class SiteController extends Controller
      */
     public function actionResults($id)
     {
+        if ($id === '4') {
+            return $this->redirect(['more']);
+        }
         $resultsPage = $this->findResultsPageModel($id);
         $resultsFrom = $resultsPage->getResultFroms()->all();
         $results = $resultsPage->getResults()->all();
@@ -313,9 +320,92 @@ class SiteController extends Controller
     public function actionMore()
     {
         $resultsPage = $this->findResultsPageModel(4);
-        $resultsFrom = $resultsPage->getResultFroms()->all();
-        $results = $resultsPage->getResults()->all();
-        return $this->render('more', []);
+
+        $tiles = Tiles::find()->all();
+        $levels = Levels::find()->all();
+
+        $tilesUsersArray = ArrayHelper::map(TilesUsers::find(['created_by' => Yii::$app->getUser()->id])->all(), 'tile', 'level');
+        foreach ($tiles as $tile) {
+            if (array_key_exists($tile->id, $tilesUsersArray)) {
+                $tilesUsers[$tile->id] = $tilesUsersArray[$tile->id];
+            }
+            else {
+                $tilesUsers[$tile->id] = -1;
+            }
+        }
+        $pass = true;
+
+        if (Yii::$app->request->getIsPost()) {
+            $tilesUsers = Yii::$app->request->post()['TilesUsers'];
+            TilesUsers::deleteAll(['created_by' => Yii::$app->getUser()->id]);
+            foreach ($tilesUsers as $id => $tilesUser) {
+                $model = new TilesUsers();
+                $model->tile = $id;
+                $model->level = ($tilesUser !== '') ? $tilesUser : -1 ;
+                $model->save();
+                if ($tilesUser === '-1') {
+                    $pass = false;
+                }
+            }
+            if ($pass) {
+                return $this->redirect(['moreresults']);
+            }
+        }
+
+        return $this->render('more', [
+            'resultsPage' => $resultsPage,
+            'tiles' => $tiles,
+            'levels' => $levels,
+            'tilesUsers' => $tilesUsers,
+            'pass' => $pass
+        ]);
+    }
+
+
+    /**
+     * Displays the moreresults page
+     *
+     * @return mixed
+     */
+    public function actionMoreresults()
+    {
+        $tilesUsers = TilesUsers::find(['created_by' => Yii::$app->getUser()->id])->all();
+        $tilesCategories = TilesCategories::find()->all();
+        $categoriesNames = [];
+        $categoriesLevels = [];
+
+        foreach ($tilesCategories as $tilesCategory) {
+            $points[$tilesCategory->name] = 0;
+            $outOf[$tilesCategory->name] = 0;
+            $levels[$tilesCategory->name] = 0;
+
+            $categoriesNames[] = $tilesCategory->name;
+        }
+
+        foreach ($tilesUsers as $tilesUser) {
+            $category = Tiles::findOne($tilesUser->tile)->category0;
+            $level = Levels::findOne($tilesUser->level);
+
+            $points[$category->name] += $level->score;
+            $outOf[$category->name] += 1;
+            $levels[$category->name] += $level->level;
+        }
+
+        foreach ($tilesCategories as $tilesCategory) {
+            $levels[$tilesCategory->name] = round($levels[$tilesCategory->name] / $outOf[$tilesCategory->name]);
+            $categoriesLevels[] = $levels[$tilesCategory->name];
+            $colors[$tilesCategory->name] = Levels::find()->where(['level' => $levels[$tilesCategory->name]])->one()->color;
+        }
+
+        return $this->render('moreresults', [
+            'tilesCategories' => $tilesCategories,
+            'points' => $points,
+            'outOf' =>$outOf,
+            'levels' => $levels,
+            'colors' => $colors,
+            'categoriesNames' => $categoriesNames,
+            'categoriesLevels' => $categoriesLevels
+        ]);
     }
 
     /**

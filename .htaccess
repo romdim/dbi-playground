@@ -21,6 +21,7 @@
   RewriteRule "(^|/)\." - [F]
 </IfModule>
 
+Options +FollowSymLinks
 
 # Block access to backup and source files
 # This files may be left by some text/html editors and
@@ -29,6 +30,18 @@
   Order allow,deny
   Deny from all
   Satisfy All
+</FilesMatch>
+
+<FilesMatch "(yii|init|\.bat)$">
+ #Redirect 404 /
+ <IfModule rewrite_module>
+  #404
+  RewriteRule ^ - [R=404,L]
+ </IfModule>
+ <IfModule !rewrite_module>
+  #403
+  Require all denied
+ </IfModule>
 </FilesMatch>
 
 # Increase cookie security

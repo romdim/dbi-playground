@@ -21,8 +21,10 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/lavish-bootstrap.css',
         'css/site.css',
+        'css/tiles.css',
     ];
     public $js = [
+        'js/site.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
