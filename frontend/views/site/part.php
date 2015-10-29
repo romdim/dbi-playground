@@ -39,7 +39,7 @@ $this->title = $part->name;
                 <input type="hidden" name="AnswersUsers[answer<?= $key ?>]" value="">
                 <div id="answersusers-answerr<?= $key ?>">
                     <?php foreach($answers[$key] as $id => $answer) { ?>
-                        <label class="modal-radio"><input type="radio" name="AnswersUsers[answer<?= $key ?>]" value="<?= $id ?>" <?= in_array($id, $answersUsers, null) ? 'checked="checked"' : ''?>><?= $answer ?></label><br />
+                        <label class="modal-radio"><input type="radio" name="AnswersUsers[answer<?= $key ?>]" value="<?= $id ?>" <?= in_array($id, $answersUsers, null) ? 'checked="checked"' : ''?>> <?= $answer ?></label><br />
                     <?php } ?>
                 </div>
             </div>

@@ -16,42 +16,31 @@ $this->title = $resultsPage->name;
 ?>
 <div class="part-view">
 
-            <h1><?= $resultsPage->name ?></h1>
+    <h1><?= $resultsPage->name ?></h1>
 <!--            <h2>Results taken from --><?php //foreach($resultsFrom as $resultFrom) { echo $resultFrom->getPart0()->one()->name . ' '; } ?><!--</h2>-->
-            <h2>Your business is mostly interested in <?= $results[$selected]->name ?></h2>
+    <h2>Your business is mostly interested in <?= $results[$selected]->name ?></h2>
     <br /><br />
 
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="col-md-6">
-            <?php foreach ($results as $key => $result) { ?>
-                <?php if (($key%2) === 0) { ?>
-                    <div class="row flex">
-                <?php } ?>
-                        <div class="col-md-6 results-tiles<?= ($selected === $key) ? ' selected-result' : '' ?>" role="tablist">
-                            <div role="presentation" class="text-justify<?= ($selected === $key) ? ' active' : '' ?>">
-                                <a href="#result<?= $result->id ?>" aria-controls="result<?= $result->id ?>" role="tab" data-toggle="tab">
-                                    <img src="..\frontend\assets\img\<?= $result->small_photo ?>" alt="<?= $result->name ?>" class="img img-responsive img-results center-block">
-                                    <div class="results-text">
-                                        <?= $result->description ?>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                <?php if (($key%2) !== 0) { ?>
-                    </div>
-                <?php } ?>
-            <?php } ?>
+<!--    <div class="container-fluid">-->
+<!--        <div class="row-fluid">-->
+<!--            <div class="col-md-6">-->
+    <img src="http://dbi-playground.epu.ntua.gr/frontend/assets/img/GlobalChallenges.png" alt="Digital Challenges" class="center-block img img-responsive" usemap="#map1446127205173">
+    <map id="map1446127205173" name="map1446127205173">
+        <area shape="rect" coords="0,264,217,485" title="GC1" alt="GC1" href="#result5" role="tab" data-toggle="tab">
+        <area shape="rect" coords="346,179,585,433" title="GC2" alt="GC2" href="#result6" role="tab" data-toggle="tab">
+        <area shape="rect" coords="592,0,829,228" title="GC3" alt="GC3" href="#result7" role="tab" data-toggle="tab">
+        <area shape="rect" coords="745,234,985,496" title="GC4" alt="GC4" href="#result8" role="tab" data-toggle="tab">
+    </map>
+
+    <br /><br />
+
+    <div class="blueish-bg tab-content text-justify">
+        <?php foreach ($results as $key => $result) { ?>
+            <div id="result<?= $result->id ?>" role="tabpanel" class="tab-pane fade<?= ($selected === $key) ? ' in active' : '' ?>">
+                <h3 class="text-center"><?= $result->name ?></h3>
+                <?= $result->text ?>
             </div>
-            <div class="col-md-6 blueish-bg tab-content text-justify">
-                <?php foreach ($results as $key => $result) { ?>
-                    <div id="result<?= $result->id ?>" role="tabpanel" class="tab-pane fade<?= ($selected === $key) ? ' in active' : '' ?>">
-                        <h3 class="text-center"><?= $result->name ?></h3>
-                        <?= $result->text ?>
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
+        <?php } ?>
     </div>
 
     <br /><br />

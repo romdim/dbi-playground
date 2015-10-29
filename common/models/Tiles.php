@@ -13,6 +13,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $name
  * @property string $description
  * @property string $text
+ * @property integer $x
+ * @property integer $y
  * @property integer $category
  * @property integer $created_at
  * @property integer $updated_at
@@ -39,7 +41,7 @@ class Tiles extends \yii\db\ActiveRecord
     {
         return [
             [['text', 'description'], 'string'],
-            [['category', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['x', 'y', 'category', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['category'], 'exist', 'skipOnError' => true, 'targetClass' => TilesCategories::className(), 'targetAttribute' => ['category' => 'id']],
         ];
@@ -66,6 +68,8 @@ class Tiles extends \yii\db\ActiveRecord
             'name' => 'Name',
             'description' => 'Description',
             'text' => 'Text',
+            'x' => 'X',
+            'y' => 'Y',
             'category' => 'Category',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

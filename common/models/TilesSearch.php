@@ -18,7 +18,7 @@ class TilesSearch extends Tiles
 public function rules()
 {
 return [
-[['id', 'category', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+[['id', 'x', 'y', 'category', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name', 'description', 'text'], 'safe'],
 ];
 }
@@ -57,6 +57,8 @@ return $dataProvider;
 
 $query->andFilterWhere([
             'id' => $this->id,
+            'x' => $this->x,
+            'y' => $this->y,
             'category' => $this->category,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

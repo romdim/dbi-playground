@@ -1,6 +1,8 @@
 html,
 body {
     height: 100%;
+    background-color: #ccc;
+    color: #001118;
 }
 
 .wrap {
@@ -91,8 +93,18 @@ a.desc:after {
 }
 
 
+.navbar-toggle {
+    background-color: #14A4D9;
+    margin-top: 20px;
+}
+
+.navbar-collapse {
+    padding-top: 10px;
+}
+
 .navbar-brand {
     padding: 0;
+    padding-top: 20px;
 }
 
 .navbar-brand > img {
@@ -106,7 +118,7 @@ a.desc:after {
 }
 
 .body-content p, .body-content ul li {
-    font-size: 2em;
+    /*font-size: em;*/
     padding-bottom: 5px;
 }
 
@@ -153,16 +165,64 @@ a.desc:after {
 }
 
 .panel-default > .panel-heading > h2 {
-    margin-top: 10px;
+    margin: 0 auto;
 }
 
 .panel-default > .panel-body {
     color: #666;
     border-color: white;
-    font-size: 1.2em;
+    /*font-size: 1.2em;*/
     padding-bottom: 0;
 }
 
 .panel-default > .panel-body > {
 
+}
+
+.navbar-fixed-top {
+    height: 70px; /* Whatever you want. */
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: black;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #14A4D9;
+}
+
+.breadcrumb > .active {
+    color: #14A4D9;
+}
+
+.breadcrumb {
+    margin-top: 10px;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+tbody {
+    background-color: white;
+}
+
+.table-bordered > thead > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > tfoot > tr > td {
+    border: 1px solid #14A4D9;
+}
+
+.tab-content {
+    padding: 15px;
 }

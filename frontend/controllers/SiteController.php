@@ -36,7 +36,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'part', 'results', 'more', 'moreresults'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -44,7 +44,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'part', 'results', 'more', 'moreresults'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -199,7 +199,7 @@ class SiteController extends Controller
             $answerIds[] = $answer->id;
         }
 
-        $answersUsers = ArrayHelper::map(AnswersUsers::find(['created_by' => Yii::$app->getUser()->id, 'answer' => $answerIds])->select('answer')->all(), 'answer', 'answer');
+        $answersUsers = ArrayHelper::map(AnswersUsers::find()->where(['created_by' => Yii::$app->getUser()->id, 'answer' => $answerIds])->select('answer')->all(), 'answer', 'answer');
 
         $pass = true;
 
@@ -321,7 +321,7 @@ class SiteController extends Controller
     {
         $resultsPage = $this->findResultsPageModel(4);
 
-        $tiles = Tiles::find()->all();
+        $tiles = Tiles::find()->orderBy(['x' => SORT_ASC, 'y' => SORT_ASC])->all();
         $levels = Levels::find()->all();
 
         $tilesUsersArray = ArrayHelper::map(TilesUsers::find(['created_by' => Yii::$app->getUser()->id])->all(), 'tile', 'level');

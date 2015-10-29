@@ -17,7 +17,10 @@ $this->title = $resultsPage->name;
 ?>
 <div class="part-view">
 
-            <h1><?= $resultsPage->name ?></h1>
+    <h1><?= $resultsPage->name ?></h1>
+
+<!--    Hard coded! -->
+    <h2>Rate your readiness level per segment</h2>
 
     <?= (!$pass) ? '<div class="text-danger">Please select a Level for every tile</div><br />' : '' ?>
     <br /><br />
@@ -29,17 +32,41 @@ $this->title = $resultsPage->name;
     ?>
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <?php
-                    $first = true;
+                    $firstTile = true;
+                    $x = 0;
                     foreach($tiles as $key => $tile) {
                         $pieces = str_split($tile->name, 10);
                 ?>
-                <?php if (($key !== 0) && ($key%7) === 0) { ?>
-                    <div class="row flex">
+                <?php
+                        if ($tile->x !== $x) {
+                            $x++;
+                            // Closing div for flex tiles-row - Reverse thinking
+                            if ($key !== 0) {
+                ?>
+                </div>
                 <?php } ?>
-                    <div class="col-xs-1 tiles" role="tablist">
-                        <div role="presentation"<?= ($first) ? ' class="active"' : '' ?>>
+                <div class="flex tiles-row">
+
+                    <?php
+                    if ($key !== 0) {
+                        for($i=1; $i<$tile->y; $i++) {
+                    ?>
+
+                            <div class="tiles">
+                                <div>
+                                    <svg class="octagon" width="50" height="50">
+                                        <rect width = "1em" height = "1em" stroke="#ccc" />
+                                    </svg >
+                                </div>
+                            </div>
+
+                        <?php } ?>
+                    <?php } ?>
+                <?php } ?>
+                    <div class="tiles" role="tablist">
+                        <div role="presentation"<?= ($firstTile) ? ' class="active"' : '' ?>>
                             <a href="#result<?= $tile->id ?>" aria-controls="result<?= $tile->id ?>" role="tab" data-toggle="tab">
                                 <svg class="octagon" width="50" height="50">
 <!--                                    <use xlink:href="#rect"/>-->
@@ -52,21 +79,19 @@ $this->title = $resultsPage->name;
                             </a>
                         </div>
                     </div>
-                <?php if (($key !== 0) && ($key%7) === 0) { ?>
-                    </div>
-                <?php } ?>
                <?php
-                        $first = false;
+                        $firstTile = false;
                         $last = $tile->id;
                     }
                ?>
+                </div>
             </div>
-            <div class="col-md-5 blueish-bg tab-content text-justify">
+            <div class="col-md-6 blueish-bg tab-content text-justify">
                 <?php
-                    $first = true;
+                    $firstTile = true;
                     foreach($tiles as $key => $tile) {
                 ?>
-                    <div id="result<?= $tile->id ?>" role="tabpanel" class="tab-pane fade<?= ($first) ? ' in active' : '' ?>">
+                    <div id="result<?= $tile->id ?>" role="tabpanel" class="tab-pane fade<?= ($firstTile) ? ' in active' : '' ?>">
                         <p>
                             <div class="form-group field-answersusers-answer has-success">
 <!--                                <input type="hidden" name="TilesUsers[level--><?//= $key ?><!--]" value="">-->
@@ -142,7 +167,11 @@ $this->title = $resultsPage->name;
 
                         <div class="pull-right" role="tablist">
                             <div role="presentation">
-                                <a href="#result<?= ($tile->id !== $last) ? $tile->id + 1 : 1 ?>" aria-controls="result<?= ($tile->id !== $last) ? $tile->id + 1 : 1 ?>" class="btn btn-primary" role="tab" data-toggle="tab">Next</a>
+                                <?php if ($tile->id !== $last) { ?>
+                                <a href="#result<?= $tile->id + 1 ?>" aria-controls="result<?= $tile->id + 1 ?>" class="btn btn-primary" role="tab" data-toggle="tab">Next</a>
+                                <?php } else { ?>
+                                    <?= Html::submitButton('Submit', ['class' => 'btn btn-default btn-block']) ?>
+                                <?php } ?>
                             </div>
                         </div>
                         <br />
@@ -164,7 +193,7 @@ $this->title = $resultsPage->name;
                         </div>
                     </div>
                 <?php
-                    $first = false;
+                    $firstTile = false;
                     }
                 ?>
             </div>

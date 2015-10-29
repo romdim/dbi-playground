@@ -25,6 +25,10 @@ use yii\widgets\ActiveForm;
 
 		<?= $form->field($model, 'text') ?>
 
+        <?= $form->field($model, 'x') ?>
+
+        <?= $form->field($model, 'y') ?>
+
 		<?= $form->field($model, 'category') ?>
 
 		<?php // echo $form->field($model, 'created_at') ?>

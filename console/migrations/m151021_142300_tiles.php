@@ -40,6 +40,8 @@ class m151021_142300_tiles extends Migration
             'name' => Schema::TYPE_STRING,
             'description' => Schema::TYPE_TEXT,
             'text' => Schema::TYPE_TEXT,
+            'x' => Schema::TYPE_INTEGER,
+            'y' => Schema::TYPE_INTEGER,
             'category' => Schema::TYPE_INTEGER,
             'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
             'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',

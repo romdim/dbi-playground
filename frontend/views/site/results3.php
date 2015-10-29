@@ -18,7 +18,11 @@ $this->title = $resultsPage->name;
 
     <h1><?= $resultsPage->name ?></h1>
 
-    <img src="..\frontend\assets\img\<?= $results[$selected]->big_photo ?>" alt="<?= $resultsPage->name ?>" class="img img-responsive">
+    <div class="block-center">
+        <img src="..\frontend\assets\img\<?= $results[$selected]->big_photo ?>" alt="<?= $resultsPage->name ?>" class="img img-responsive">
+    </div>
+
+    <br />
 
     <div class="blueish-bg tab-content text-justify">
                 <?= $results[$selected]->text ?>
