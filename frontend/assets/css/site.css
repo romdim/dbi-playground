@@ -123,9 +123,17 @@ a.desc:after {
 }
 
 .blueish-bg {
-    background-color: #14A4D9;
+    /*background-color: #14A4D9;*/
     border: solid 1px white;
     color: black;
+}
+
+.blue-indeed {
+    background-color: #14A4D9;
+}
+
+.apantisi {
+    color: #14A4D9;
 }
 
 .img-results {
@@ -145,7 +153,7 @@ a.desc:after {
     text-decoration: none;
 }
 
-.results-tiles:hover, .results-tiles:active {
+map > area.active {
     background-color: #14A4D9;
 }
 
@@ -215,8 +223,17 @@ label {
     margin-bottom: 5px;
 }
 
+thead {
+    background-color: #14A4D9;
+    border: 1px solid #14A4D9;
+}
+
+.table-bordered > thead > tr > th {
+    border: 1px solid #14A4D9;
+}
+
 tbody {
-    background-color: white;
+    /*background-color: white;*/
 }
 
 .table-bordered > thead > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > tfoot > tr > td {
@@ -225,4 +242,44 @@ tbody {
 
 .tab-content {
     padding: 15px;
+}
+
+.panel-heading > h2 {
+    font-size: 16px;
+}
+
+.panel-body {
+    font-size: 14px;
+}
+
+input[type="radio"] {
+    margin-right: 8px;
+}
+
+.axes {
+    background-image: url(../img/axes.gif);
+    background-repeat: no-repeat;
+}
+
+.inside-axes {
+    width: 80%;
+    text-align: right;
+}
+
+.x-axis {
+    transform: scale(50,8);
+    display: inline-block;
+    margin-left: 250px;
+    margin-top: 15px;
+}
+
+.y-axis {
+    transform: rotate(-90deg) scale(50,8);
+    display:inline-block;
+    margin-left: -50px;
+}
+
+.outside-y-axis {
+    margin-top: 285px;
+    float: left;
 }

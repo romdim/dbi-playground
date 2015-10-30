@@ -54,28 +54,17 @@ $this->title = $resultsPage->name;
                         for($i=1; $i<$tile->y; $i++) {
                     ?>
 
-                            <div class="tiles">
-                                <div>
-                                    <svg class="octagon" width="50" height="50">
-                                        <rect width = "1em" height = "1em" stroke="#ccc" />
-                                    </svg >
-                                </div>
+                            <div class="rectangle no-border">
+
                             </div>
 
                         <?php } ?>
                     <?php } ?>
                 <?php } ?>
-                    <div class="tiles" role="tablist">
+                    <div class="rectangle text-center" role="tablist" style="background-color: <?= $tile->getCategory0()->one()->color ?>;" id="tile<?= $tile->id ?>">
                         <div role="presentation"<?= ($firstTile) ? ' class="active"' : '' ?>>
-                            <a href="#result<?= $tile->id ?>" aria-controls="result<?= $tile->id ?>" role="tab" data-toggle="tab">
-                                <svg class="octagon" width="50" height="50">
-<!--                                    <use xlink:href="#rect"/>-->
-<!--                                    <rect class="tiles-border" width = "1em" height = "1em" stroke="--><?//= $tile->getCategory0()->one()->color ?><!--"/>-->
-                                    <rect width = "1em" height = "1em" stroke="<?= $tile->getCategory0()->one()->color ?>" />
-                                    <text text-anchor = "middle" x = "50%" y = "20%" font-size = "12" ><?php foreach($pieces as $piece) {
-                                            echo '<tspan x = "50%"  text-anchor = "middle" dy="1.4em">'.$piece.'</tspan>';
-                                        } ?></text >
-                                </svg >
+                            <a href="#result<?= $tile->id ?>" aria-controls="result<?= $tile->id ?>" role="tab" data-toggle="tab" <?= ($tile->getCategory0()->one()->color === 'blue') || ($tile->getCategory0()->one()->color === 'purple') || ($tile->getCategory0()->one()->color === 'green') || ($tile->getCategory0()->one()->color === 'red')  ? 'style="color:white;"' : ''?>>
+                                <?= $tile->name ?>
                             </a>
                         </div>
                     </div>
@@ -186,8 +175,10 @@ $this->title = $resultsPage->name;
                         <div class="row fluid">
                             <?php foreach($levels as $level) { ?>
                                 <p>
-                                    <div class="col-xs-3" style='background-color:<?= $level->color ?>;'>Level <?= $level->level ?></div>
-                                    <div class="col-xs-9"><?= $level->description ?></div>
+                                    <div class="col-xs-2"><!--style='background-color:--><?//= $level-color ?><!--;'>-->
+                                    Level <?= $level->level ?>
+                                    </div>
+                                    <div class="col-xs-10"><?= $level->description ?></div>
                                 </p>
                             <?php } ?>
                         </div>

@@ -18,18 +18,19 @@ $this->title = $resultsPage->name;
 
     <h1><?= $resultsPage->name ?></h1>
 <!--            <h2>Results taken from --><?php //foreach($resultsFrom as $resultFrom) { echo $resultFrom->getPart0()->one()->name . ' '; } ?><!--</h2>-->
-    <h2>Your business is mostly interested in <?= $results[$selected]->name ?></h2>
+    <h2 class="apantisi">Your business is mostly interested in <?= $results[$selected]->name ?></h2>
     <br /><br />
 
 <!--    <div class="container-fluid">-->
 <!--        <div class="row-fluid">-->
 <!--            <div class="col-md-6">-->
-    <img src="http://dbi-playground.epu.ntua.gr/frontend/assets/img/GlobalChallenges.png" alt="Digital Challenges" class="center-block img img-responsive" usemap="#map1446127205173">
+    <p class="text-center">Click on the images to get more information</p>
+    <img src="http://dbi-playground.epu.ntua.gr/frontend/assets/img/GlobalChallenges.gif" alt="Digital Challenges" class="map center-block img img-responsive" usemap="#map1446127205173">
     <map id="map1446127205173" name="map1446127205173">
-        <area shape="rect" coords="0,264,217,485" title="GC1" alt="GC1" href="#result5" role="tab" data-toggle="tab">
-        <area shape="rect" coords="346,179,585,433" title="GC2" alt="GC2" href="#result6" role="tab" data-toggle="tab">
-        <area shape="rect" coords="592,0,829,228" title="GC3" alt="GC3" href="#result7" role="tab" data-toggle="tab">
-        <area shape="rect" coords="745,234,985,496" title="GC4" alt="GC4" href="#result8" role="tab" data-toggle="tab">
+        <area shape="rect" coords="0,264,217,485" title="GC1" alt="GC1" href="#result5" role="tab" data-toggle="tab" <?= ($selected === 0) ? 'class="active"' : '' ?>>
+        <area shape="rect" coords="346,179,585,433" title="GC2" alt="GC2" href="#result6" role="tab" data-toggle="tab" <?= ($selected === 1) ? 'class="active"' : '' ?>>
+        <area shape="rect" coords="592,0,829,228" title="GC3" alt="GC3" href="#result7" role="tab" data-toggle="tab" <?= ($selected === 2) ? 'class="active"' : '' ?>>
+        <area shape="rect" coords="745,234,985,496" title="GC4" alt="GC4" href="#result8" role="tab" data-toggle="tab" <?= ($selected === 3) ? 'class="active"' : '' ?>>
     </map>
 
     <br /><br />

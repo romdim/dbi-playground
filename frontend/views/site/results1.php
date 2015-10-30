@@ -18,32 +18,24 @@ $this->title = $resultsPage->name;
 
             <h1><?= $resultsPage->name ?></h1>
 <!--            <h2>Results taken from --><?php //foreach($resultsFrom as $resultFrom) { echo $resultFrom->getPart0()->one()->name . ' '; } ?><!--</h2>-->
-            <h2>Your business is a <?= $results[$selected]->name ?></h2>
+            <h2 class="apantisi">Your business is a <?= $results[$selected]->name ?></h2>
     <br /><br />
 
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="col-md-6">
-            <?php foreach ($results as $key => $result) { ?>
-                <?php if (($key%2) === 0) { ?>
-                    <div class="row flex">
-                <?php } ?>
-                        <div class="col-md-6 results-tiles<?= ($selected === $key) ? ' selected-result' : '' ?>" role="tablist">
-                            <div role="presentation" class="text-justify<?= ($selected === $key) ? ' active' : '' ?>">
-                                <a href="#result<?= $result->id ?>" aria-controls="result<?= $result->id ?>" role="tab" data-toggle="tab">
-                                    <img src="..\frontend\assets\img\<?= $result->small_photo ?>" alt="<?= $result->name ?>" class="img img-responsive img-results center-block">
-                                    <div class="results-text">
-                                        <?= $result->description ?>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                <?php if (($key%2) !== 0) { ?>
-                    </div>
-                <?php } ?>
-            <?php } ?>
+            <div class="col-md-4">
+
+                <p class="text-center">Click on the tiles to get more information</p>
+                <img src="http://dbi-playground.epu.ntua.gr/frontend/assets/img/DigitalBusiness.gif" alt="" usemap="#map1446203910249" class="map center-block img img-responsive" >
+                <map id="map1446203910249" name="map1446203910249">
+                    <area shape="rect" coords="82,14,196,127" title="Digital Defender" alt="Digital Defender" href="#result2" role="tab" data-toggle="tab" <?= ($selected === 1) ? 'class="active"' : '' ?>>
+                    <area shape="rect" coords="202,13,315,128" title="Digital Analyzer" alt="Digital Analyzer" href="#result4" role="tab" data-toggle="tab" <?= ($selected === 3) ? 'class="active"' : '' ?>>
+                    <area shape="rect" coords="84,134,195,245" title="Digital Reactor" alt="Digital Reactor" href="#result1" role="tab" data-toggle="tab" <?= ($selected === 0) ? 'class="active"' : '' ?>>
+                    <area shape="rect" coords="202,132,316,247" title="Digital Prospector" alt="Digital Prospector" href="#result3" role="tab" data-toggle="tab" <?= ($selected === 2) ? 'class="active"' : '' ?>>
+                </map>
+
             </div>
-            <div class="col-md-6 blueish-bg tab-content text-justify">
+            <div class="col-md-8 blueish-bg tab-content text-justify">
                 <?php foreach ($results as $key => $result) { ?>
                     <div id="result<?= $result->id ?>" role="tabpanel" class="tab-pane fade<?= ($selected === $key) ? ' in active' : '' ?>">
                         <h3 class="text-center"><?= $result->name ?></h3>

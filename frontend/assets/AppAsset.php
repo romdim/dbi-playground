@@ -24,6 +24,8 @@ class AppAsset extends AssetBundle
         'css/tiles.css',
     ];
     public $js = [
+        'js/jquery.maphilight.min.js',
+        'js/site.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

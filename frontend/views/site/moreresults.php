@@ -22,16 +22,16 @@ $this->title = 'Digital Readiness Results';
 
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="col-xs-4 blueish-bg">
+            <div class="col-xs-4 blueish-bg blue-indeed">
                 <h2>Segment</h2>
             </div>
-            <div class="col-xs-2 blueish-bg">
+            <div class="col-xs-2 blueish-bg blue-indeed">
                 <h2>Points</h2>
             </div>
-            <div class="col-xs-3 blueish-bg">
+            <div class="col-xs-3 blueish-bg blue-indeed">
                 <h2>Average Score</h2>
             </div>
-            <div class="col-xs-3 blueish-bg">
+            <div class="col-xs-3 blueish-bg blue-indeed">
                 <h2>Average Levels</h2>
             </div>
         </div>
