@@ -133,7 +133,8 @@ a.desc:after {
 }
 
 .apantisi {
-    color: #14A4D9;
+    /*color: #14A4D9;*/
+    color: blue;
 }
 
 .img-results {

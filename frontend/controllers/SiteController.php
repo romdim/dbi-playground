@@ -324,7 +324,7 @@ class SiteController extends Controller
         $tiles = Tiles::find()->orderBy(['x' => SORT_ASC, 'y' => SORT_ASC])->all();
         $levels = Levels::find()->all();
 
-        $tilesUsersArray = ArrayHelper::map(TilesUsers::find(['created_by' => Yii::$app->getUser()->id])->all(), 'tile', 'level');
+        $tilesUsersArray = ArrayHelper::map(TilesUsers::find()->where(['created_by' => Yii::$app->getUser()->id])->all(), 'tile', 'level');
         foreach ($tiles as $tile) {
             if (array_key_exists($tile->id, $tilesUsersArray)) {
                 $tilesUsers[$tile->id] = $tilesUsersArray[$tile->id];
@@ -369,7 +369,7 @@ class SiteController extends Controller
      */
     public function actionMoreresults()
     {
-        $tilesUsers = TilesUsers::find(['created_by' => Yii::$app->getUser()->id])->all();
+        $tilesUsers = TilesUsers::find()->where(['created_by' => Yii::$app->getUser()->id])->all();
         $tilesCategories = TilesCategories::find()->all();
         $categoriesNames = [];
         $categoriesLevels = [];
